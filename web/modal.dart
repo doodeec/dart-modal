@@ -122,7 +122,6 @@ void prepareModals() {
 }
 
 void checkBackdrop() {
-  print(backdrop);
   if (openedModals.length > 0) {
     addClass(backdrop, 'shown');
   } else {
