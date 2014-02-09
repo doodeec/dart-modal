@@ -1,7 +1,10 @@
 library modal;
 
 import 'dart:html';
+import 'dom.dart';
 
+DivElement backdrop = new DivElement(),
+  wrapper = new DivElement();
 List<Modal> allModals = new List();
 List<int> openedModals = new List();
 int m = 1;
@@ -28,19 +31,20 @@ class Modal {
     this._footer = new DivElement();
 
     this._header.text = this.name;
+    addClass(this.elem, 'modal');
     this.reloadMessage();
   }
 
   void renderModal() {
-    _footer.children.clear();
+    this._footer.children.clear();
 
-    int i = 0, len = buttons.length;
+    int i = 0, len = this.buttons.length;
     for(; i<len; i++) {
-      _footer.children.add(buttons[i]);
+      this._footer.children.add(this.buttons[i]);
     }
 
     //if no button is defined, create default one
-    if(buttons.length == 0) {
+    if(this.buttons.length == 0) {
       ButtonElement defaultButton = new ButtonElement();
       defaultButton.text = 'OK';
       defaultButton.onClick.listen((Event e) {
@@ -48,13 +52,15 @@ class Modal {
         e.preventDefault();
         e.stopPropagation();
       });
-      _footer.children.add(defaultButton);
+      this._footer.children.add(defaultButton);
     }
 
     // append elements
-    elem.children.add(_header);
-    elem.children.add(_body);
-    elem.children.add(_footer);
+    this.elem.children.add(this._header);
+    this.elem.children.add(this._body);
+    this.elem.children.add(this._footer);
+
+    wrapper.children.add(this.elem);
   }
 
   void addBtn(String label, [Function clickHandler]) {
@@ -67,12 +73,15 @@ class Modal {
   }
 
   void open() {
+    this.renderModal();
     openedModals.add(this.id);
+    checkBackdrop();
   }
 
   void close() {
     openedModals.removeAt(openedModals.indexOf(this.id));
     elem.remove();
+    checkBackdrop();
   }
 
   String reloadMessage() {
@@ -104,6 +113,20 @@ Modal getModal(int id) {
   return null;
 }
 
+void prepareModals() {
+  Element body = querySelector('body');
+  backdrop.className = 'modal-backdrop';
+  wrapper.className = 'modal-wrapper';
+  body.children.add(wrapper);
+  body.children.add(backdrop);
+}
+
 void checkBackdrop() {
-  //TODO
+  print(backdrop);
+  if (openedModals.length > 0) {
+    addClass(backdrop, 'shown');
+  } else {
+    removeClass(backdrop, 'shown');
+  }
+
 }
