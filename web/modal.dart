@@ -15,11 +15,8 @@ class Modal {
   List<ButtonElement> buttons = new List();
   Element _header, _body, _footer;
 
-  Modal(String name, String message) {
-    this.name = name;
-    this.message = message;
+  Modal(this.name, this.message) {
     this.id = m;
-
     this.populateElement();
     m++;
   }
