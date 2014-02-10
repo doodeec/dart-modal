@@ -16,47 +16,47 @@ class Modal {
   Element _header, _body, _footer;
 
   Modal(this.name, this.message) {
-    this.id = m;
-    this.populateElement();
+    id = m;
+    populateElement();
     m++;
   }
 
   void populateElement() {
-    this._header = new DivElement();
-    this._body = new DivElement();
-    this._footer = new DivElement();
+    _header = new DivElement();
+    _body = new DivElement();
+    _footer = new DivElement();
 
-    this._header.text = this.name;
-    this.elem.classes.add('modal');
-    this.reloadMessage();
+    _header.text = name;
+    elem.classes.add('modal');
+    reloadMessage();
   }
 
   void renderModal() {
-    this._footer.children.clear();
+    _footer.children.clear();
 
-    int i = 0, len = this.buttons.length;
+    int i = 0, len = buttons.length;
     for(; i<len; i++) {
-      this._footer.children.add(this.buttons[i]);
+      _footer.children.add(buttons[i]);
     }
 
     //if no button is defined, create default one
-    if(this.buttons.length == 0) {
+    if(buttons.length == 0) {
       ButtonElement defaultButton = new ButtonElement();
       defaultButton.text = 'OK';
       defaultButton.onClick.listen((Event e) {
-        this.close();
+        close();
         e.preventDefault();
         e.stopPropagation();
       });
-      this._footer.children.add(defaultButton);
+      _footer.children.add(defaultButton);
     }
 
     // append elements
-    this.elem.children.add(this._header);
-    this.elem.children.add(this._body);
-    this.elem.children.add(this._footer);
+    elem.children.add(_header);
+    elem.children.add(_body);
+    elem.children.add(_footer);
 
-    wrapper.children.add(this.elem);
+    wrapper.children.add(elem);
   }
 
   void addBtn(String label, [Function clickHandler]) {
@@ -69,25 +69,25 @@ class Modal {
   }
 
   void open() {
-    this.renderModal();
-    openedModals.add(this.id);
+    renderModal();
+    openedModals.add(id);
     checkBackdrop();
   }
 
   void close() {
-    openedModals.removeAt(openedModals.indexOf(this.id));
+    openedModals.removeAt(openedModals.indexOf(id));
     elem.remove();
     checkBackdrop();
   }
 
   String reloadMessage() {
-    this._body.text = this.message;
-    return this.message;
+    _body.text = message;
+    return message;
   }
 
   void set setMessage(String msg) {
-    this.message = msg;
-    this.reloadMessage();
+    message = msg;
+    reloadMessage();
   }
 }
 
