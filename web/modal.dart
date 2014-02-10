@@ -1,7 +1,6 @@
 library modal;
 
 import 'dart:html';
-import 'dom.dart';
 
 DivElement backdrop = new DivElement(),
   wrapper = new DivElement();
@@ -31,7 +30,7 @@ class Modal {
     this._footer = new DivElement();
 
     this._header.text = this.name;
-    addClass(this.elem, 'modal');
+    this.elem.classes.add('modal');
     this.reloadMessage();
   }
 
@@ -122,10 +121,11 @@ void prepareModals() {
 }
 
 void checkBackdrop() {
+  //TODO check top modal when multiple opened -> z-index value changing
   if (openedModals.length > 0) {
-    addClass(backdrop, 'shown');
+    backdrop.classes.add('shown');
   } else {
-    removeClass(backdrop, 'shown');
+    backdrop.classes.remove('shown');
   }
 
 }
