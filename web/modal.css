@@ -29,11 +29,9 @@ h1, p {
     top: 50%;
     left: 50%;
     background: white;
-    padding: 1em 2em;
     border-radius: 0.3em;
     -webkit-border-radius: 0.3em;
-    /*z-index: 39000;*/
-    z-index: 41000;
+    z-index: 39000;
     -webkit-transform: translate(-50%,-50%);
     -moz-transform: translate(-50%,-50%);
     -ms-transform: translate(-50%,-50%);
@@ -41,7 +39,33 @@ h1, p {
     transform: translate(-50%,-50%);
 }
 
-/*TODO*/
 .modal.top-modal {
     z-index: 40005;
+}
+
+.modal-header {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid #eee;
+    padding: 1em 1em 0.5em;
+}
+.modal-body {
+    padding: 0 1em;
+}
+.modal-footer {
+    margin-top: 0.5em;
+    padding: 1em;
+    text-align: center;
+}
+.modal-footer button {
+    background-color: #ddd;
+    border: 1px solid #aaa;
+    border-radius: 0.3em;
+    -webkit-border-radius: 0.3em;
+    padding: 0.5em 1em;
+    cursor: pointer;
+}
+.modal-footer button:hover {
+    background-color: #aaa;
 }

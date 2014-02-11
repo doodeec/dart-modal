@@ -6,6 +6,10 @@ DivElement backdrop = new DivElement(),
   wrapper = new DivElement();
 List<Modal> allModals = new List();
 List<int> openedModals = new List();
+String topModalClass = 'top-modal',
+  mHeaderClass = 'modal-header',
+  mBodyClass = 'modal-body',
+  mFooterClass = 'modal-footer';
 int m = 1;
 
 class Modal {
@@ -22,9 +26,12 @@ class Modal {
   }
 
   void populateElement() {
-    _header = new DivElement();
-    _body = new DivElement();
-    _footer = new DivElement();
+    _header = new DivElement()
+                    ..classes.add(mHeaderClass);
+    _body = new DivElement()
+                    ..classes.add(mBodyClass);
+    _footer = new DivElement()
+                    ..classes.add(mFooterClass);
 
     _header.text = name;
     elem.classes.add('modal');
@@ -70,13 +77,15 @@ class Modal {
 
   void open() {
     renderModal();
-    openedModals.add(id);
+    openedModals.insert(0,id);
+    markActiveModal();
     checkBackdrop();
   }
 
   void close() {
     openedModals.removeAt(openedModals.indexOf(id));
     elem.remove();
+    markActiveModal();
     checkBackdrop();
   }
 
@@ -91,6 +100,14 @@ class Modal {
   }
 }
 
+void markActiveModal() {
+  if (openedModals.length > 1) {
+    getModal(openedModals[1]).elem.classes.remove(topModalClass);
+  }
+  if (openedModals.length > 0) {
+   getModal(openedModals[0]).elem.classes.add(topModalClass);
+  }
+}
 
 Modal createModal(String name, String message) {
   Modal newModal = new Modal(name, message);
