@@ -68,8 +68,8 @@ class Modal {
     if(buttons.length == 0) {
       eventHandlers['empty-button'] = this.close;
       _footer.children.add(new ButtonElement()
-        ..text = 'OK'
-        ..id = 'empty-button'
+          ..text = 'OK'
+          ..id = 'empty-button'
       );
     }
 
@@ -120,7 +120,7 @@ void markActiveModal() {
     getModal(openedModals[1]).elem.classes.remove(topModalClass);
   }
   if (openedModals.length > 0) {
-   getModal(openedModals[0]).elem.classes.add(topModalClass);
+    getModal(openedModals[0]).elem.classes.add(topModalClass);
   }
 }
 
@@ -165,5 +165,4 @@ void checkBackdrop() {
   } else {
     backdrop.classes.remove('shown');
   }
-
 }
