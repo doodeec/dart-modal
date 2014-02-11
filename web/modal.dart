@@ -50,7 +50,7 @@ class Modal {
     if(buttons.length == 0) {
       ButtonElement defaultButton = new ButtonElement();
       defaultButton.text = 'OK';
-      defaultButton.onClick.listen((Event e) {
+      defaultButton.onClick.listen((MouseEvent e) {
         close();
         e.preventDefault();
         e.stopPropagation();
@@ -70,7 +70,12 @@ class Modal {
     Element newButton = new ButtonElement();
     newButton.text = label;
     //TODO handle click globally per modal - differentiate by event.target
-    if (clickHandler != null) newButton.onClick.listen(clickHandler);
+    if (clickHandler != null) newButton.onClick.listen((MouseEvent e) {
+      clickHandler();
+
+      e.stopPropagation();
+      e.preventDefault();
+    });
 
     buttons.add(newButton);
   }
@@ -94,7 +99,7 @@ class Modal {
     return message;
   }
 
-  void set setMessage(String msg) {
+  void setMessage(String msg) {
     message = msg;
     reloadMessage();
   }

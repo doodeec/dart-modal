@@ -9,23 +9,29 @@ void main() {
   ButtonElement twoMod = querySelector('#two_modals');
 
   oneMod.onClick.listen((Event e) {
+    Modal msg = createModal('Test', 'Modal test message');
+    msg.open();
+
     e.stopPropagation();
     e.preventDefault();
-
-    Modal msg = createModal('test', 'modal test message');
-    msg.open();
   });
 
   twoMod.onClick.listen((Event e) {
-    e.stopPropagation();
-    e.preventDefault();
-
-    Modal msg1 = createModal('first', 'first modal message');
+    Modal msg1 = createModal('First', 'First modal message');
     msg1.open();
 
     new Timer(new Duration(seconds: 2), () {
-      Modal msg2 = createModal('second', 'second modal message');
+      Modal msg2 = createModal('Second', 'Second modal message');
+      msg2.addBtn('Close', () {
+        msg2.close();
+      });
+      msg2.addBtn('Change text', () {
+        msg2.setMessage('New message in second modal');
+      });
       msg2.open();
     });
+
+    e.stopPropagation();
+    e.preventDefault();
   });
 }
