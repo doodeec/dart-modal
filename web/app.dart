@@ -22,6 +22,7 @@ void main() {
       createModal('Second', 'Second modal message')
         ..addBtn('Close', (Modal modal) => modal.close())
         ..addBtn('Change text', (Modal modal) => modal.setMessage('New message in second modal'))
+        ..addBtn('Create Inception', (Modal modal) => createModal('Inception','Modal from modal').open())
         ..open();
     });
 

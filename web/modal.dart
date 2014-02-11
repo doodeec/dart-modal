@@ -40,7 +40,7 @@ class Modal {
   }
 
   void clickHandler(Event e) {
-    String id = e.target.id;
+    String id = (e.target as Element).id;
 
     if (eventHandlers.containsKey(id)) {
       eventHandlers[id](this);
