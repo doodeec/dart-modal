@@ -83,18 +83,20 @@ class Modal {
     elem.onClick.listen(clickHandler);
   }
 
-  void addBtn(String label, [Function clickHandler]) {
+  Modal addBtn(String label, [Function clickHandler]) {
     Map newButton = new Map();
     newButton['text'] = label;
     newButton['handler'] = clickHandler;
     buttons.add(newButton);
+    return this;
   }
 
-  void open() {
+  Modal open() {
     renderModal();
     openedModals.insert(0,id);
     markActiveModal();
     checkBackdrop();
+    return this;
   }
 
   void close([_]) {
