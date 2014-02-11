@@ -140,7 +140,6 @@ void prepareModals() {
 }
 
 void checkBackdrop() {
-  //TODO check top modal when multiple opened -> z-index value changing
   if (openedModals.length > 0) {
     backdrop.classes.add('shown');
   } else {
