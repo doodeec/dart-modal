@@ -16,8 +16,9 @@ class Modal {
   String name, message;
   int id;
   Element elem = new DivElement();
-  List<ButtonElement> buttons = new List();
+  List<Map> buttons = new List();
   Element _header, _body, _footer;
+  Map eventHandlers = new Map();
 
   Modal(this.name, this.message) {
     id = m;
@@ -38,24 +39,38 @@ class Modal {
     reloadMessage();
   }
 
+  void clickHandler(Event e) {
+    String id = e.target.id;
+
+    if (eventHandlers.containsKey(id)) {
+      eventHandlers[id](this);
+    }
+
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
   void renderModal() {
     _footer.children.clear();
 
     int i = 0, len = buttons.length;
+    Map button;
     for(; i<len; i++) {
-      _footer.children.add(buttons[i]);
+      button = buttons[i];
+      eventHandlers['button-${i}'] = button['handler'];
+      _footer.children.add(new ButtonElement()
+          ..text = button['text']
+          ..id = 'button-${i}'
+      );
     }
 
     //if no button is defined, create default one
     if(buttons.length == 0) {
-      ButtonElement defaultButton = new ButtonElement();
-      defaultButton.text = 'OK';
-      defaultButton.onClick.listen((MouseEvent e) {
-        close();
-        e.preventDefault();
-        e.stopPropagation();
-      });
-      _footer.children.add(defaultButton);
+      eventHandlers['empty-button'] = this.close;
+      _footer.children.add(new ButtonElement()
+        ..text = 'OK'
+        ..id = 'empty-button'
+      );
     }
 
     // append elements
@@ -64,19 +79,14 @@ class Modal {
     elem.children.add(_footer);
 
     wrapper.children.add(elem);
+
+    elem.onClick.listen(clickHandler);
   }
 
   void addBtn(String label, [Function clickHandler]) {
-    Element newButton = new ButtonElement();
-    newButton.text = label;
-    //TODO handle click globally per modal - differentiate by event.target
-    if (clickHandler != null) newButton.onClick.listen((MouseEvent e) {
-      clickHandler(this);
-
-      e.stopPropagation();
-      e.preventDefault();
-    });
-
+    Map newButton = new Map();
+    newButton['text'] = label;
+    newButton['handler'] = clickHandler;
     buttons.add(newButton);
   }
 
@@ -87,7 +97,7 @@ class Modal {
     checkBackdrop();
   }
 
-  void close() {
+  void close([_]) {
     openedModals.removeAt(openedModals.indexOf(id));
     elem.remove();
     markActiveModal();
