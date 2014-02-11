@@ -22,11 +22,11 @@ void main() {
 
     new Timer(new Duration(seconds: 2), () {
       Modal msg2 = createModal('Second', 'Second modal message');
-      msg2.addBtn('Close', () {
-        msg2.close();
+      msg2.addBtn('Close', (Modal modal) {
+        modal.close();
       });
-      msg2.addBtn('Change text', () {
-        msg2.setMessage('New message in second modal');
+      msg2.addBtn('Change text', (Modal modal) {
+        modal.setMessage('New message in second modal');
       });
       msg2.open();
     });

@@ -5,7 +5,7 @@
 
 another [Dart](http://dartlang.org) experiment
 
-Modal widget + manager
+Modal widget
 
 
 ##Licence

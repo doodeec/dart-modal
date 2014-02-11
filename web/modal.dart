@@ -71,7 +71,7 @@ class Modal {
     newButton.text = label;
     //TODO handle click globally per modal - differentiate by event.target
     if (clickHandler != null) newButton.onClick.listen((MouseEvent e) {
-      clickHandler();
+      clickHandler(this);
 
       e.stopPropagation();
       e.preventDefault();
@@ -127,6 +127,16 @@ Modal getModal(int id) {
   for(; i<len; i++) {
     modal = allModals[i];
     if(modal.id == id) return modal;
+  }
+  return null;
+}
+
+Modal getModalByName(String name) {
+  int i = 0, len = allModals.length;
+  Modal modal;
+  for(; i<len; i++) {
+    modal = allModals[i];
+    if(modal.name == name) return modal;
   }
   return null;
 }
