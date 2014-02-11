@@ -61,6 +61,7 @@ class Modal {
       _footer.children.add(new ButtonElement()
           ..text = button['text']
           ..id = 'button-${i}'
+          ..classes.add('btn')
       );
     }
 
@@ -70,6 +71,7 @@ class Modal {
       _footer.children.add(new ButtonElement()
           ..text = 'OK'
           ..id = 'empty-button'
+          ..classes.add('btn')
       );
     }
 

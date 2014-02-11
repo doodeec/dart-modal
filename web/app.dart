@@ -21,9 +21,7 @@ void main() {
     new Timer(new Duration(seconds: 2), () {
       createModal('Second', 'Second modal message')
         ..addBtn('Close', (Modal modal) => modal.close())
-        ..addBtn('Change text', (Modal modal) {
-          modal.setMessage('New message in second modal');
-        })
+        ..addBtn('Change text', (Modal modal) => modal.setMessage('New message in second modal'))
         ..open();
     });
 
